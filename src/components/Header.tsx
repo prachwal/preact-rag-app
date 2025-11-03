@@ -1,4 +1,6 @@
 import { memo } from "preact/compat"
+import { LanguageSwitcher } from "./LanguageSwitcher"
+import { ThemeSwitcher } from "./ThemeSwitcher"
 
 interface HeaderProps {
   title: string
@@ -25,6 +27,10 @@ export const Header = memo(function Header({ title, children, onMenuClick, sideb
             </span>
           </button>
           <h1 class="header-title">{title}</h1>
+        </div>
+        <div class="header-controls">
+          <ThemeSwitcher />
+          <LanguageSwitcher />
         </div>
         {children && (
           <nav class="header-nav" aria-label="Main navigation">
