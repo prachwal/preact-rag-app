@@ -1,10 +1,10 @@
-import { useState } from 'preact/hooks'
 import preactLogo from './assets/preact.svg'
 import viteLogo from '/vite.svg'
 import './app.css'
+import { useStore } from './store'
 
 export function App() {
-  const [count, setCount] = useState(0)
+  const { count, inc, dec } = useStore()
 
   return (
     <>
@@ -18,11 +18,17 @@ export function App() {
       </div>
       <h1>Vite + Preact</h1>
       <div class="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
+        <button onClick={() => inc(1)}>
+          +
         </button>
+        <span style={{ "padding": "0 12px" }}>count is {count.value.count} {count.value.operation}</span>
+        <button onClick={() => dec(1)}>
+          -
+        </button>
+      </div>
+      <div class='card'>
         <p>
-          Edit <code>src/app.tsx</code> and save to test HMR
+          Edit <code>src/app.tsx</code> and save to test HMR updates.
         </p>
       </div>
       <p>

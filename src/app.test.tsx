@@ -10,10 +10,17 @@ describe('App', () => {
 
   it('should increment count when button is clicked', async () => {
     render(<App />)
-    const button = screen.getByRole('button', { name: /count is 0/i })
-    expect(button).toBeInTheDocument()
+    const incButton = screen.getByRole('button', { name: '+' })
+    expect(incButton).toBeInTheDocument()
 
-    await button.click()
-    expect(screen.getByRole('button', { name: /count is 1/i })).toBeInTheDocument()
+    await incButton.click()
+    expect(screen.getByText('count is 1 inc')).toBeInTheDocument()
+
+    const decButton = screen.getByRole('button', { name: '-' })
+    expect(decButton).toBeInTheDocument()
+
+    await decButton.click()
+    expect(screen.getByText('count is 0 dec')).toBeInTheDocument()
+
   })
 })

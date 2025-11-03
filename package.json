@@ -12,6 +12,7 @@
     "test:run": "vitest run"
   },
   "dependencies": {
+    "@preact/signals": "^2.3.2",
     "preact": "^10.27.2"
   },
   "devDependencies": {
