@@ -1,31 +1,35 @@
 import { memo } from "preact/compat"
-import { useState } from "preact/hooks"
+import { useState, useEffect } from "preact/hooks"
+import i18n from "../i18n"
 
 interface NavItem {
   href: string
   label: string
+  labelKey: string
   icon: string
   children?: NavItem[]
 }
 
 const navigation: NavItem[] = [
   {
-    href: "#settings",
+    href: "/settings",
     label: "Settings",
+    labelKey: "nav.settings",
     icon: "⚙️",
     children: [
-      { href: "#settings-theme", label: "Theme", icon: "🎨" },
-      { href: "#settings-preferences", label: "Preferences", icon: "📋" }
+      { href: "/settings/theme", label: "Theme", labelKey: "nav.theme", icon: "🎨" },
+      { href: "/settings/preferences", label: "Preferences", labelKey: "nav.preferences", icon: "📋" }
     ]
   },
-  { href: "#counter", label: "Counter", icon: "🔢" },
+  { href: "/counter", label: "Counter", labelKey: "nav.counter", icon: "🔢" },
   {
-    href: "#documentation",
+    href: "/documentation",
     label: "Documentation",
+    labelKey: "nav.documentation",
     icon: "📚",
     children: [
-      { href: "#docs-getting-started", label: "Getting Started", icon: "🚀" },
-      { href: "#docs-api", label: "API Reference", icon: "📖" }
+      { href: "/documentation/getting-started", label: "Getting Started", labelKey: "nav.gettingStarted", icon: "🚀" },
+      { href: "/documentation/api", label: "API Reference", labelKey: "nav.apiReference", icon: "📖" }
     ]
   },
 ]
@@ -39,6 +43,17 @@ interface SidebarProps {
 
 export const Sidebar = memo(function Sidebar({ isOpen, isExpanded, onClose, onToggleExpanded }: SidebarProps) {
   const [expandedItems, setExpandedItems] = useState<Set<string>>(new Set())
+  const [t, setT] = useState(() => i18n.t.bind(i18n))
+
+  useEffect(() => {
+    const handleLanguageChange = () => {
+      setT(() => i18n.t.bind(i18n))
+    }
+    i18n.on('languageChanged', handleLanguageChange)
+    return () => {
+      i18n.off('languageChanged', handleLanguageChange)
+    }
+  }, [])
 
   const toggleItem = (href: string) => {
     const newExpanded = new Set(expandedItems)
@@ -60,14 +75,14 @@ export const Sidebar = memo(function Sidebar({ isOpen, isExpanded, onClose, onTo
         <button
           class="sidebar-toggle desktop-only"
           onClick={onToggleExpanded}
-          aria-label={isExpanded ? "Collapse sidebar" : "Expand sidebar"}
-          title={isExpanded ? "Collapse sidebar" : "Expand sidebar"}
+          aria-label={isExpanded ? t('sidebar.collapse') : t('sidebar.expand')}
+          title={isExpanded ? t('sidebar.collapse') : t('sidebar.expand')}
         >
           <span class={`toggle-icon ${isExpanded ? 'expanded' : 'collapsed'}`}>
             {isExpanded ? '◀' : '▶'}
           </span>
         </button>
-        {isExpanded && <h2 class="sidebar-title">Navigation</h2>}
+        {isExpanded && <h2 class="sidebar-title">{t('sidebar.navigation')}</h2>}
       </div>
 
       <nav class="sidebar-nav">
@@ -79,16 +94,16 @@ export const Sidebar = memo(function Sidebar({ isOpen, isExpanded, onClose, onTo
                   href={item.href}
                   class="sidebar-link"
                   onClick={onClose}
-                  title={!isExpanded ? item.label : undefined}
+                  title={!isExpanded ? t(item.labelKey) : undefined}
                 >
                   <span class="sidebar-icon">{item.icon}</span>
-                  {isExpanded && <span class="sidebar-label">{item.label}</span>}
+                  {isExpanded && <span class="sidebar-label">{t(item.labelKey)}</span>}
                 </a>
                 {item.children && isExpanded && (
                   <button
                     class="sidebar-expand-btn"
                     onClick={() => toggleItem(item.href)}
-                    aria-label={`Toggle ${item.label} submenu`}
+                    aria-label={`Toggle ${t(item.labelKey)} submenu`}
                     aria-expanded={expandedItems.has(item.href)}
                   >
                     <span class={`expand-icon ${expandedItems.has(item.href) ? 'expanded' : ''}`}>
@@ -107,7 +122,7 @@ export const Sidebar = memo(function Sidebar({ isOpen, isExpanded, onClose, onTo
                         onClick={onClose}
                       >
                         <span class="sidebar-icon">{child.icon}</span>
-                        <span class="sidebar-label">{child.label}</span>
+                        <span class="sidebar-label">{t(child.labelKey)}</span>
                       </a>
                     </li>
                   ))}
@@ -121,7 +136,7 @@ export const Sidebar = memo(function Sidebar({ isOpen, isExpanded, onClose, onTo
       {isExpanded && (
         <div class="sidebar-footer">
           <p class="sidebar-info">
-            Modern Preact application with theming support
+            {t('sidebar.info')}
           </p>
         </div>
       )}
