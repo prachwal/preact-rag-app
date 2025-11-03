@@ -1,0 +1,96 @@
+// Base variables
+$font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
+$line-height: 1.5;
+$font-weight: 400;
+
+// Variant color definitions
+$variants: (
+  standard: (
+    dark: (
+      text: #e0e0e0,
+      bg: #121212,
+      link: #646cff,
+      link-hover: #535bf2,
+      button: #ffffff,
+      button-bg: #1a1a1a,
+      code: #888,
+      bg-code: #222222aa
+    ),
+    light: (
+      text: #213547,
+      bg: #f9f9f9,
+      link: #646cff,
+      link-hover: #535bf2,
+      button: #000000,
+      button-bg: #eaeaea,
+      code: #555,
+      bg-code: #f5f5f5aa
+    )
+  ),
+  sepia: (
+    dark: (
+      text: #d4c5a9,
+      bg: #2a2520,
+      link: #8b7d6b,
+      link-hover: #a08c7a,
+      button: #d4c5a9,
+      button-bg: #3a332d,
+      code: #b8a892,
+      bg-code: #3a332daa
+    ),
+    light: (
+      text: #704214,
+      bg: #f5f0e1,
+      link: #8b7d6b,
+      link-hover: #a08c7a,
+      button: #704214,
+      button-bg: #e8dcc8,
+      code: #8b7d6b,
+      bg-code: #e8dcc8aa
+    )
+  ),
+  forest: (
+    dark: (
+      text: #e8f5e8,
+      bg: #1b2e1b,
+      link: #4caf50,
+      link-hover: #66bb6a,
+      button: #e8f5e8,
+      button-bg: #2e4d2e,
+      code: #81c784,
+      bg-code: #2e4d2eaa
+    ),
+    light: (
+      text: #1b2e1b,
+      bg: #e8f5e8,
+      link: #2e7d32,
+      link-hover: #4caf50,
+      button: #1b2e1b,
+      button-bg: #c8e6c9,
+      code: #4caf50,
+      bg-code: #c8e6c9aa
+    )
+  ),
+  ocean: (
+    dark: (
+      text: #e3f2fd,
+      bg: #0d1b2a,
+      link: #2196f3,
+      link-hover: #64b5f6,
+      button: #e3f2fd,
+      button-bg: #1e3a5f,
+      code: #90caf9,
+      bg-code: #1e3a5faa
+    ),
+    light: (
+      text: #0d1b2a,
+      bg: #e3f2fd,
+      link: #1565c0,
+      link-hover: #2196f3,
+      button: #0d1b2a,
+      button-bg: #bbdefb,
+      code: #2196f3,
+      bg-code: #bbdefbaa
+    )
+  )
+);

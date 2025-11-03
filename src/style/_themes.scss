@@ -1,0 +1,33 @@
+@use 'variables' as vars;
+@use 'mixins';
+
+/* Dark mode variants */
+@each $variant, $modes in vars.$variants {
+  :root[data-mode="dark"][data-variant="#{$variant}"] {
+    @include mixins.apply-variant-colors($variant, dark);
+  }
+}
+
+/* Light mode variants */
+@each $variant, $modes in vars.$variants {
+  :root[data-mode="light"][data-variant="#{$variant}"] {
+    @include mixins.apply-variant-colors($variant, light);
+  }
+}
+
+/* Auto mode - uses media queries with variant */
+@media (prefers-color-scheme: dark) {
+  @each $variant, $modes in vars.$variants {
+    :root:not([data-mode])[data-variant="#{$variant}"] {
+      @include mixins.apply-variant-colors($variant, dark);
+    }
+  }
+}
+
+@media (prefers-color-scheme: light) {
+  @each $variant, $modes in vars.$variants {
+    :root:not([data-mode])[data-variant="#{$variant}"] {
+      @include mixins.apply-variant-colors($variant, light);
+    }
+  }
+}

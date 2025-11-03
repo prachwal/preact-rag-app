@@ -1,0 +1,15 @@
+@use 'sass:map';
+@use 'variables' as vars;
+
+// Mixin to apply variant colors
+@mixin apply-variant-colors($variant, $mode) {
+  $colors: map.get(map.get(vars.$variants, $variant), $mode);
+  --color-text: #{map.get($colors, text)};
+  --color-bg: #{map.get($colors, bg)};
+  --color-link: #{map.get($colors, link)};
+  --color-link-hover: #{map.get($colors, link-hover)};
+  --color-button: #{map.get($colors, button)};
+  --color-button-bg: #{map.get($colors, button-bg)};
+  --color-code: #{map.get($colors, code)};
+  --color-bg-code: #{map.get($colors, bg-code)};
+}
