@@ -131,7 +131,7 @@
 
 // Sidebar
 .sidebar {
-  background-color: var(--color-card-bg, rgba(255, 255, 255, 0.05));
+  background-color: var(--color-bg, #121212);
   display: flex;
   flex-direction: column;
   position: fixed;
@@ -139,6 +139,7 @@
   border: 1px solid var(--color-border, rgba(255, 255, 255, 0.1));
   overflow: hidden;
   z-index: 99;
+  border-radius: 0;
 
   @media print {
     display: none;
@@ -151,7 +152,6 @@
     bottom: 0;
     width: vars.$sidebar-width;
     max-width: 85vw;
-    border-radius: 0;
     border-left: none;
     border-top: none;
     border-bottom: none;
@@ -171,7 +171,6 @@
     height: 100vh;
     max-height: 100vh;
     overflow-y: auto;
-    border-radius: 0;
     border-left: none;
     border-top: none;
     border-bottom: none;
@@ -216,7 +215,7 @@
   flex-shrink: 0;
 
   @media (max-width: vars.$breakpoint-md) {
-    padding-top: calc(vars.$spacing-lg + vars.$spacing-md);
+    padding-top: calc(vars.$spacing-xl + vars.$spacing-md);
   }
 }
 
@@ -267,6 +266,7 @@
   flex: 1;
   overflow-y: auto;
   padding: vars.$spacing-sm 0;
+  min-height: 0;
 }
 
 .sidebar-list {
@@ -386,6 +386,7 @@
   padding: vars.$spacing-md;
   border-top: 1px solid var(--color-border, rgba(255, 255, 255, 0.1));
   flex-shrink: 0;
+  margin-top: auto;
 }
 
 .sidebar-info {
