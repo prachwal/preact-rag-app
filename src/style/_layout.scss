@@ -1,0 +1,144 @@
+// File 11/13: src/style/_layout.scss
+
+@use "variables" as vars;
+
+.app-container {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+.app-layout {
+  display: flex;
+  flex: 1;
+  position: relative;
+  max-width: 100%;
+  margin: 0 auto;
+  width: 100%;
+
+  // Mobile: sidebar overlay, no margin
+  @media (max-width: vars.$breakpoint-md) {
+    padding: vars.$spacing-md;
+  }
+
+  // Tablet & Desktop: sidebar is fixed, main has margin
+  @media (min-width: vars.$breakpoint-md) {
+    padding: 0;
+  }
+}
+
+.sidebar-overlay {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 98;
+  backdrop-filter: blur(2px);
+
+  @media (max-width: vars.$breakpoint-md) {
+    display: block;
+  }
+}
+
+.main-content {
+  flex: 1;
+  min-width: 0;
+  padding: vars.$spacing-lg;
+  transition: margin-left vars.$transition-normal,
+    padding vars.$transition-normal;
+  width: 100%;
+
+  // Mobile: no margin, sidebar is overlay
+  @media (max-width: vars.$breakpoint-md) {
+    margin-left: 0;
+    padding: 0;
+  }
+
+  // Tablet: adjust for collapsed/expanded sidebar
+  @media (min-width: vars.$breakpoint-md) and (max-width: vars.$breakpoint-lg) {
+    padding: vars.$spacing-md;
+  }
+
+  // Desktop: adjust for collapsed/expanded sidebar
+  @media (min-width: vars.$breakpoint-lg) {
+    padding: vars.$spacing-lg;
+    max-width: calc(100vw - vars.$sidebar-width);
+  }
+}
+
+// Sidebar state adjustments
+.app-layout.sidebar-collapsed {
+  .main-content {
+    @media (min-width: vars.$breakpoint-md) {
+      margin-left: vars.$sidebar-collapsed-width;
+    }
+
+    @media (min-width: vars.$breakpoint-lg) {
+      max-width: calc(100vw - vars.$sidebar-collapsed-width);
+    }
+  }
+}
+
+.app-layout.sidebar-expanded {
+  .main-content {
+    @media (min-width: vars.$breakpoint-md) {
+      margin-left: vars.$sidebar-width;
+    }
+
+    @media (min-width: vars.$breakpoint-lg) {
+      max-width: calc(100vw - vars.$sidebar-width);
+    }
+  }
+}
+
+.content-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(300px, 100%), 1fr));
+  gap: vars.$spacing-lg;
+
+  @media (max-width: vars.$breakpoint-md) {
+    grid-template-columns: 1fr;
+    gap: vars.$spacing-md;
+  }
+
+  @media (min-width: vars.$breakpoint-md) and (max-width: vars.$breakpoint-lg) {
+    gap: vars.$spacing-md;
+  }
+
+  @media (orientation: landscape) and (max-height: 600px) {
+    gap: vars.$spacing-sm;
+  }
+}
+
+// Print styles
+@media print {
+  .app-layout {
+    display: block;
+    max-width: 100%;
+    padding: 0;
+  }
+
+  .sidebar,
+  .sidebar-overlay,
+  .app-header,
+  .app-footer {
+    display: none !important;
+  }
+
+  .main-content {
+    margin-left: 0 !important;
+    padding: 1rem !important;
+  }
+
+  .content-grid {
+    display: block;
+
+    .card {
+      page-break-inside: avoid;
+      margin-bottom: 1rem;
+    }
+  }
+}

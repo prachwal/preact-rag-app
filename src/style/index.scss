@@ -1,4 +1,7 @@
-// Import all SCSS modules
+// Import all SCSS modules in order
+@use 'variables';
+@use 'mixins';
 @use 'base';
+@use 'layout';
 @use 'themes';
 @use 'components';

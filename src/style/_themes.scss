@@ -1,33 +1,34 @@
-@use 'variables' as vars;
-@use 'mixins';
+@use "variables" as vars;
+@use "mixins";
 
-/* Dark mode variants */
-@each $variant, $modes in vars.$variants {
-  :root[data-mode="dark"][data-variant="#{$variant}"] {
-    @include mixins.apply-variant-colors($variant, dark);
+/* Mixin for theme variants */
+@mixin theme-variants($mode) {
+  @each $variant, $modes in vars.$variants {
+    &[data-variant="#{$variant}"] {
+      @include mixins.apply-variant-colors($variant, $mode);
+    }
   }
 }
 
+/* Dark mode variants */
+:root[data-mode="dark"] {
+  @include theme-variants(dark);
+}
+
 /* Light mode variants */
-@each $variant, $modes in vars.$variants {
-  :root[data-mode="light"][data-variant="#{$variant}"] {
-    @include mixins.apply-variant-colors($variant, light);
-  }
+:root[data-mode="light"] {
+  @include theme-variants(light);
 }
 
 /* Auto mode - uses media queries with variant */
 @media (prefers-color-scheme: dark) {
-  @each $variant, $modes in vars.$variants {
-    :root:not([data-mode])[data-variant="#{$variant}"] {
-      @include mixins.apply-variant-colors($variant, dark);
-    }
+  :root:not([data-mode]) {
+    @include theme-variants(dark);
   }
 }
 
 @media (prefers-color-scheme: light) {
-  @each $variant, $modes in vars.$variants {
-    :root:not([data-mode])[data-variant="#{$variant}"] {
-      @include mixins.apply-variant-colors($variant, light);
-    }
+  :root:not([data-mode]) {
+    @include theme-variants(light);
   }
 }

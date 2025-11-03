@@ -12,4 +12,34 @@
   --color-button-bg: #{map.get($colors, button-bg)};
   --color-code: #{map.get($colors, code)};
   --color-bg-code: #{map.get($colors, bg-code)};
+  --color-card-bg: #{map.get($colors, card-bg)};
+  --color-border: #{map.get($colors, border)};
+  --color-text-muted: #{map.get($colors, text-muted)};
+}
+
+// Responsive breakpoint mixin
+@mixin respond-to($breakpoint) {
+  @if $breakpoint == sm {
+    @media (min-width: vars.$breakpoint-sm) { @content; }
+  } @else if $breakpoint == md {
+    @media (min-width: vars.$breakpoint-md) { @content; }
+  } @else if $breakpoint == lg {
+    @media (min-width: vars.$breakpoint-lg) { @content; }
+  } @else if $breakpoint == xl {
+    @media (min-width: vars.$breakpoint-xl) { @content; }
+  }
+}
+
+// Flexbox center mixin
+@mixin flex-center {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+// Grid auto-fit mixin
+@mixin grid-auto-fit($min-width: 250px, $gap: vars.$spacing-md) {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax($min-width, 1fr));
+  gap: $gap;
 }

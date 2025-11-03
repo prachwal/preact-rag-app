@@ -1,12 +1,42 @@
-import { expect, afterEach } from 'vitest'
-import { cleanup } from '@testing-library/preact'
-import '@testing-library/jest-dom'
-import * as matchers from '@testing-library/jest-dom/matchers'
+import { expect, afterEach, beforeAll } from "vitest";
+import { cleanup } from "@testing-library/preact";
+import "@testing-library/jest-dom";
+import * as matchers from "@testing-library/jest-dom/matchers";
 
-// extends Vitest's expect method with methods from react-testing-library
-expect.extend(matchers)
+expect.extend(matchers);
 
-// runs a cleanup after each test case (e.g. clearing jsdom)
+beforeAll(() => {
+  Object.defineProperty(window, "matchMedia", {
+    writable: true,
+    value: (query: string) => ({
+      matches: false,
+      media: query,
+      onchange: null,
+      addListener: () => {},
+      removeListener: () => {},
+      addEventListener: () => {},
+      removeEventListener: () => {},
+      dispatchEvent: () => {},
+    }),
+  });
+
+  // Mock window.innerWidth for mobile testing
+  Object.defineProperty(window, "innerWidth", {
+    writable: true,
+    value: 375, // Mobile width
+  });
+
+  const localStorageMock = {
+    getItem: () => null,
+    setItem: () => null,
+    removeItem: () => null,
+    clear: () => null,
+  };
+  Object.defineProperty(window, "localStorage", {
+    value: localStorageMock,
+  });
+});
+
 afterEach(() => {
-  cleanup()
-})
+  cleanup();
+});

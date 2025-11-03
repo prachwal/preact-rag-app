@@ -1,11 +1,10 @@
 import { act, renderHook } from '@testing-library/preact'
 import { describe, it, expect, beforeEach } from 'vitest'
-import {useStore, settings} from '../store'
+import { useStore, settings } from '../store'
 
 describe('useStore', () => {
 
   beforeEach(() => {
-    // Resetuj stan sygnału przed każdym testem
     settings.value = { mode: 'dark', variant: 'standard' };
   });
 
@@ -65,4 +64,26 @@ describe('useStore', () => {
     })
     expect(result.current.settings.value).toStrictEqual({ mode: 'dark', variant: 'standard' })
   })
+
+  it('should handle invalid localStorage data gracefully', () => {
+    const originalGetItem = Storage.prototype.getItem;
+    Storage.prototype.getItem = () => 'invalid-mode';
+
+    const { result } = renderHook(() => useStore());
+    expect(result.current.settings.value.mode).toBe('dark');
+
+    Storage.prototype.getItem = originalGetItem;
+  });
+
+  it('should handle localStorage quota exceeded', () => {
+    const originalSetItem = Storage.prototype.setItem;
+    Storage.prototype.setItem = () => {
+      throw new Error('QuotaExceededError');
+    };
+
+    const { result } = renderHook(() => useStore());
+    expect(() => result.current.setMode('light')).not.toThrow();
+
+    Storage.prototype.setItem = originalSetItem;
+  });
 })

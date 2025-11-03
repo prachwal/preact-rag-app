@@ -1,96 +1,153 @@
-// Base variables
-$font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
-$line-height: 1.5;
+// Breakpoints
+$breakpoint-sm: 576px;
+$breakpoint-md: 768px;
+$breakpoint-lg: 992px;
+$breakpoint-xl: 1200px;
+
+// Layout
+$max-width: 1400px;
+$sidebar-width: 280px;
+$sidebar-collapsed-width: 70px;
+$header-height: 80px;
+$header-height-landscape: 60px;
+
+// Spacing
+$spacing-xs: 0.5rem;
+$spacing-sm: 1rem;
+$spacing-md: 1.5rem;
+$spacing-lg: 2rem;
+$spacing-xl: 3rem;
+
+// Border radius
+$border-radius: 8px;
+$border-radius-lg: 12px;
+
+// Transitions
+$transition-fast: 0.15s ease;
+$transition-normal: 0.25s ease;
+$transition-slow: 0.4s ease;
+
+// Typography
+$font-family: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+$line-height: 1.6;
 $font-weight: 400;
 
-// Variant color definitions
+// Variant color definitions - WCAG AA compliant
 $variants: (
   standard: (
     dark: (
-      text: #e0e0e0,
+      text: #ffffff,
       bg: #121212,
-      link: #646cff,
-      link-hover: #535bf2,
+      link: #7c85ff,
+      link-hover: #a3abff,
       button: #ffffff,
-      button-bg: #1a1a1a,
-      code: #888,
-      bg-code: #222222aa
+      button-bg: #2a2a2a,
+      code: #b0b0b0,
+      bg-code: #1e1e1ecc,
+      card-bg: rgba(255, 255, 255, 0.05),
+      border: rgba(255, 255, 255, 0.1),
+      text-muted: rgba(255, 255, 255, 0.7),
     ),
     light: (
-      text: #213547,
+      text: #1a1a1a,
       bg: #f9f9f9,
-      link: #646cff,
-      link-hover: #535bf2,
+      link: #0000ee,
+      link-hover: #0000cc,
       button: #000000,
-      button-bg: #eaeaea,
-      code: #555,
-      bg-code: #f5f5f5aa
-    )
+      button-bg: #e0e0e0,
+      code: #333333,
+      bg-code: #efefefcc,
+      card-bg: rgba(0, 0, 0, 0.03),
+      border: rgba(0, 0, 0, 0.1),
+      text-muted: rgba(0, 0, 0, 0.6),
+    ),
   ),
   sepia: (
     dark: (
-      text: #d4c5a9,
+      text: #f5e6d3,
       bg: #2a2520,
-      link: #8b7d6b,
-      link-hover: #a08c7a,
-      button: #d4c5a9,
-      button-bg: #3a332d,
-      code: #b8a892,
-      bg-code: #3a332daa
+      link: #d4a574,
+      link-hover: #e6c299,
+      button: #f5e6d3,
+      button-bg: #3d3530,
+      code: #d9c4a8,
+      bg-code: #3d3530cc,
+      card-bg: rgba(245, 230, 211, 0.05),
+      border: rgba(245, 230, 211, 0.1),
+      text-muted: rgba(245, 230, 211, 0.7),
     ),
     light: (
-      text: #704214,
+      text: #3d2817,
       bg: #f5f0e1,
-      link: #8b7d6b,
-      link-hover: #a08c7a,
-      button: #704214,
-      button-bg: #e8dcc8,
-      code: #8b7d6b,
-      bg-code: #e8dcc8aa
-    )
+      link: #6b4423,
+      link-hover: #8b5a2b,
+      button: #3d2817,
+      button-bg: #ddd4c0,
+      code: #5a3a1f,
+      bg-code: #e5dcc8cc,
+      card-bg: rgba(61, 40, 23, 0.03),
+      border: rgba(61, 40, 23, 0.1),
+      text-muted: rgba(61, 40, 23, 0.6),
+    ),
   ),
   forest: (
     dark: (
-      text: #e8f5e8,
+      text: #ffffff,
       bg: #1b2e1b,
-      link: #4caf50,
-      link-hover: #66bb6a,
-      button: #e8f5e8,
-      button-bg: #2e4d2e,
-      code: #81c784,
-      bg-code: #2e4d2eaa
+      link: #66bb6a,
+      link-hover: #81c784,
+      button: #ffffff,
+      button-bg: #2d4a2d,
+      code: #a5d6a7,
+      bg-code: #2d4a2dcc,
+      card-bg: rgba(255, 255, 255, 0.05),
+      border: rgba(255, 255, 255, 0.1),
+      text-muted: rgba(255, 255, 255, 0.7),
     ),
     light: (
       text: #1b2e1b,
       bg: #e8f5e8,
-      link: #2e7d32,
-      link-hover: #4caf50,
+      link: #1b5e20,
+      link-hover: #2e7d32,
       button: #1b2e1b,
-      button-bg: #c8e6c9,
-      code: #4caf50,
-      bg-code: #c8e6c9aa
-    )
+      button-bg: #b8ddb8,
+      code: #1b5e20,
+      bg-code: #c8e6c9cc,
+      card-bg: rgba(27, 46, 27, 0.03),
+      border: rgba(27, 46, 27, 0.1),
+      text-muted: rgba(27, 46, 27, 0.6),
+    ),
   ),
   ocean: (
     dark: (
-      text: #e3f2fd,
+      text: #ffffff,
       bg: #0d1b2a,
-      link: #2196f3,
-      link-hover: #64b5f6,
-      button: #e3f2fd,
+      link: #64b5f6,
+      link-hover: #90caf9,
+      button: #ffffff,
       button-bg: #1e3a5f,
-      code: #90caf9,
-      bg-code: #1e3a5faa
+      code: #bbdefb,
+      bg-code: #1e3a5fcc,
+      card-bg: rgba(255, 255, 255, 0.05),
+      border: rgba(255, 255, 255, 0.1),
+      text-muted: rgba(255, 255, 255, 0.7),
     ),
     light: (
       text: #0d1b2a,
       bg: #e3f2fd,
-      link: #1565c0,
-      link-hover: #2196f3,
+      link: #0d47a1,
+      link-hover: #1565c0,
       button: #0d1b2a,
-      button-bg: #bbdefb,
-      code: #2196f3,
-      bg-code: #bbdefbaa
-    )
-  )
+      button-bg: #90caf9,
+      code: #0d47a1,
+      bg-code: #bbdefbcc,
+      card-bg: rgba(13, 27, 42, 0.03),
+      border: rgba(13, 27, 42, 0.1),
+      text-muted: rgba(13, 27, 42, 0.6),
+    ),
+  ),
 );
+
+// Print styles
+$print-font-size: 12pt;
+$print-line-height: 1.5;

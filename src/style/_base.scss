@@ -1,12 +1,16 @@
 @use 'variables' as vars;
 
+* {
+  box-sizing: border-box;
+}
+
 :root {
   font-family: vars.$font-family;
   line-height: vars.$line-height;
   font-weight: vars.$font-weight;
 
   color-scheme: light dark;
-  color: var(--color-text, #e0e0e0);
+  color: var(--color-text, #ffffff);
   background-color: var(--color-bg, #121212);
 
   font-synthesis: none;
@@ -15,47 +19,78 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
-a {
-  font-weight: 500;
-  color: var(--color-link, #646cff);
-  text-decoration: inherit;
-
-  &:hover {
-    color: var(--color-link-hover, #535bf2);
-  }
-}
-
 body {
   margin: 0;
-  display: flex;
-  place-items: center;
+  padding: 0;
   min-width: 320px;
   min-height: 100vh;
 }
 
-h1 {
-  font-size: 3.2em;
-  line-height: 1.1;
+#app {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+a {
+  font-weight: 500;
+  color: var(--color-link, #7c85ff);
+  text-decoration: none;
+  transition: color vars.$transition-normal;
+
+  &:hover {
+    color: var(--color-link-hover, #a3abff);
+  }
+
+  &:focus-visible {
+    outline: 2px solid var(--color-link);
+    outline-offset: 2px;
+    border-radius: 2px;
+  }
+}
+
+h1, h2, h3, h4, h5, h6 {
+  margin: 0;
+  line-height: 1.2;
+}
+
+p {
+  margin: 0 0 1rem 0;
+}
+
+ul {
+  margin: 0;
+  padding: 0;
 }
 
 button {
-  border-radius: 8px;
+  border-radius: vars.$border-radius;
   border: 1px solid transparent;
-  padding: 0.6em 1.2em;
-  font-size: 1em;
+  padding: vars.$spacing-sm vars.$spacing-md;
+  font-size: 1rem;
   font-weight: 500;
   font-family: inherit;
-  color: var(--color-button, #000000);
-  background-color: var(--color-button-bg, #1a1a1a);
+  color: var(--color-button, #ffffff);
+  background-color: var(--color-button-bg, #2a2a2a);
   cursor: pointer;
-  transition: border-color 0.25s;
+  transition: all vars.$transition-normal;
 
   &:hover {
-    border-color: var(--color-link, #646cff);
+    border-color: var(--color-link, #7c85ff);
+    transform: translateY(-1px);
   }
 
-  &:focus,
+  &:active {
+    transform: translateY(0);
+  }
+
   &:focus-visible {
-    outline: 4px auto -webkit-focus-ring-color;
+    outline: 2px solid var(--color-link);
+    outline-offset: 2px;
+  }
+
+  &:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
   }
 }

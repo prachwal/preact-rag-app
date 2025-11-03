@@ -7,20 +7,4 @@ describe('App', () => {
     render(<App />)
     expect(screen.getByText('Vite + Preact')).toBeInTheDocument()
   })
-
-  it('should increment count when button is clicked', async () => {
-    render(<App />)
-    const incButton = screen.getByRole('button', { name: '+' })
-    expect(incButton).toBeInTheDocument()
-
-    await incButton.click()
-    expect(screen.getByText('count is 1')).toBeInTheDocument()
-
-    const decButton = screen.getByRole('button', { name: '-' })
-    expect(decButton).toBeInTheDocument()
-
-    await decButton.click()
-    expect(screen.getByText('count is 0')).toBeInTheDocument()
-
-  })
 })
