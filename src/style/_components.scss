@@ -217,6 +217,10 @@
   @media (max-width: vars.$breakpoint-md) {
     padding-top: calc(vars.$spacing-xl + vars.$spacing-md);
   }
+
+  @media (min-width: vars.$breakpoint-md) {
+    margin-top: 120px;
+  }
 }
 
 .sidebar-toggle {
