@@ -1,11 +1,10 @@
 import preactLogo from './assets/preact.svg'
 import viteLogo from '/vite.svg'
-import './app.css'
 import { useStore } from './store'
 import { useState } from 'preact/compat'
 
 export function App() {
-  const { settings, nextTheme } = useStore()
+  const { settings, nextMode, nextVariant } = useStore()
   const [counter, setCounter] = useState(0)
 
   return (
@@ -19,9 +18,14 @@ export function App() {
         </a>
       </div>
       <h1>Vite + Preact</h1>
-      <button onClick={nextTheme}>
-        Theme: {settings.value.theme}
-      </button>
+      <div>
+        <button onClick={nextMode}>
+          Mode: {settings.value.mode}
+        </button>
+        <button onClick={nextVariant}>
+          Variant: {settings.value.variant}
+        </button>
+      </div>
       <div class="card">
         <button onClick={() => setCounter(counter + 1)}>
           +

@@ -6,27 +6,63 @@ describe('useStore', () => {
 
   beforeEach(() => {
     // Resetuj stan sygnału przed każdym testem
-    settings.value = { theme: 'dark' };
+    settings.value = { mode: 'dark', variant: 'standard' };
   });
 
   it('should initialize with default values', () => {
     const { result } = renderHook(() => useStore())
-    expect(result.current.settings.value).toStrictEqual({ theme: 'dark' })
+    expect(result.current.settings.value).toStrictEqual({ mode: 'dark', variant: 'standard' })
   })
 
-  it('should change the theme', () => {
+  it('should change the mode', () => {
     const { result } = renderHook(() => useStore())
     act(() => {
-      result.current.setTheme('light')
+      result.current.setMode('light')
     })
-    expect(result.current.settings.value).toStrictEqual({ theme: 'light' })
+    expect(result.current.settings.value).toStrictEqual({ mode: 'light', variant: 'standard' })
   })
 
-  it('should decrement the count', () => {
+  it('should change the variant', () => {
     const { result } = renderHook(() => useStore())
     act(() => {
-      result.current.nextTheme()
+      result.current.setVariant('sepia')
     })
-    expect(result.current.settings.value).toStrictEqual({ theme: 'light' })
+    expect(result.current.settings.value).toStrictEqual({ mode: 'dark', variant: 'sepia' })
+  })
+
+  it('should cycle through modes', () => {
+    const { result } = renderHook(() => useStore())
+    act(() => {
+      result.current.nextMode()
+    })
+    expect(result.current.settings.value).toStrictEqual({ mode: 'light', variant: 'standard' })
+    act(() => {
+      result.current.nextMode()
+    })
+    expect(result.current.settings.value).toStrictEqual({ mode: 'auto', variant: 'standard' })
+    act(() => {
+      result.current.nextMode()
+    })
+    expect(result.current.settings.value).toStrictEqual({ mode: 'dark', variant: 'standard' })
+  })
+
+  it('should cycle through variants', () => {
+    const { result } = renderHook(() => useStore())
+    act(() => {
+      result.current.nextVariant()
+    })
+    expect(result.current.settings.value).toStrictEqual({ mode: 'dark', variant: 'sepia' })
+    act(() => {
+      result.current.nextVariant()
+    })
+    expect(result.current.settings.value).toStrictEqual({ mode: 'dark', variant: 'forest' })
+    act(() => {
+      result.current.nextVariant()
+    })
+    expect(result.current.settings.value).toStrictEqual({ mode: 'dark', variant: 'ocean' })
+    act(() => {
+      result.current.nextVariant()
+    })
+    expect(result.current.settings.value).toStrictEqual({ mode: 'dark', variant: 'standard' })
   })
 })
