@@ -40,6 +40,8 @@
 
   @media (max-width: vars.$breakpoint-md) {
     display: block;
+    transition: opacity vars.$transition-mobile ease; // Szybsze fade
+    backdrop-filter: none; // Bez blur
   }
 }
 
@@ -54,7 +56,9 @@
   // Mobile: no margin, sidebar is overlay
   @media (max-width: vars.$breakpoint-md) {
     margin-left: 0;
-    padding: 0;
+    padding: vars.$spacing-sm-mobile; // Nowy: mniejszy na mobile
+    margin: env(safe-area-inset-top) env(safe-area-inset-right)
+      env(safe-area-inset-bottom) env(safe-area-inset-left); // Dla notch
   }
 
   // Tablet: adjust for collapsed/expanded sidebar
@@ -104,12 +108,24 @@
     gap: vars.$spacing-md;
   }
 
+  @media (max-width: vars.$breakpoint-sm) {
+    gap: vars.$spacing-sm-mobile; // Mniejszy gap
+    margin: 0; // Usuń marginesy dla pełnej szerokości
+  }
+
   @media (min-width: vars.$breakpoint-md) and (max-width: vars.$breakpoint-lg) {
     gap: vars.$spacing-md;
   }
 
   @media (orientation: landscape) and (max-height: 600px) {
     gap: vars.$spacing-sm;
+  }
+
+  // Dla i18n – łamanie słów
+  p,
+  li {
+    hyphens: auto;
+    word-break: break-word;
   }
 }
 

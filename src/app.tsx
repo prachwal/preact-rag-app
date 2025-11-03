@@ -17,9 +17,11 @@ export function App() {
   // Initialize sidebar state based on screen size
   useEffect(() => {
     const checkScreenSize = () => {
-      const isDesktop = window.innerWidth >= 768
+      const width = window.innerWidth
+      const isMobile = width < 768
+      const isDesktop = width >= 992
       setSidebarOpen(true) // Always open in mobile (full screen), toggleable in desktop
-      setSidebarExpanded(isDesktop)
+      setSidebarExpanded(isMobile || isDesktop) // Expanded on mobile and desktop, collapsed on tablet
     }
 
     checkScreenSize()

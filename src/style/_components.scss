@@ -25,12 +25,22 @@
   flex-wrap: wrap;
 
   @media (max-width: vars.$breakpoint-sm) {
-    padding: vars.$spacing-sm vars.$spacing-md;
-    gap: vars.$spacing-sm;
+    padding: vars.$spacing-xs vars.$spacing-sm-mobile; // Jeszcze mniejszy padding na mobile
+    gap: vars.$spacing-xs-mobile;
   }
 
   @media (orientation: landscape) and (max-height: 600px) {
     padding: vars.$spacing-xs vars.$spacing-md;
+  }
+}
+
+.header-left {
+  display: flex;
+  align-items: center;
+  gap: vars.$spacing-sm;
+
+  @media (max-width: vars.$breakpoint-sm) {
+    gap: vars.$spacing-xs-mobile;
   }
 }
 
@@ -51,6 +61,10 @@
   align-items: center;
   order: 3;
   width: 100%;
+
+  @media (max-width: vars.$breakpoint-sm) {
+    display: none; // Schowaj ikony Vite i Preact na mobile
+  }
 
   @media (min-width: vars.$breakpoint-md) {
     width: auto;
@@ -137,13 +151,15 @@
     left: 0;
     bottom: 0;
     width: vars.$sidebar-width;
-    max-width: 85vw;
+    max-width: 90vw; // Zwiększ z 85vw dla lepszego UX
     border-left: none;
     border-top: none;
     border-bottom: none;
     max-height: 100vh;
     overflow-y: auto;
     transform: translateX(-100%);
+    transition: transform vars.$transition-mobile
+      cubic-bezier(0.25, 0.46, 0.45, 0.94); // Szybsza, płynniejsza animacja (zamiast $transition-normal)
 
     &.sidebar-open {
       transform: translateX(0);
@@ -173,8 +189,12 @@
     }
 
     .sidebar-link {
-      justify-content: center;
-      padding: vars.$spacing-sm;
+      justify-content: flex-start; // Przesuń ikony w lewo
+      padding: vars.$spacing-lg vars.$spacing-xs; // Mniejszy padding z prawej
+      width: 100%;
+      height: vars.$sidebar-collapsed-width; // Kwadratowy obszar
+      display: flex;
+      align-items: center;
     }
 
     .sidebar-icon {
@@ -188,6 +208,19 @@
 
   &.sidebar-expanded {
     width: vars.$sidebar-width;
+  }
+
+  @media (max-width: vars.$breakpoint-md) {
+    .sidebar-link {
+      min-height: 48px; // Min 44px + padding dla touch
+      padding: vars.$spacing-md; // Większy padding
+      justify-content: flex-start; // Ikona z lewej dla lepszego reach
+    }
+
+    .sidebar-icon {
+      min-width: 32px; // Większa ikona
+      font-size: 1.5rem;
+    }
   }
 }
 
@@ -399,6 +432,11 @@
     box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
   }
 
+  @media (max-width: vars.$breakpoint-sm) {
+    padding: vars.$spacing-sm-mobile;
+    border-radius: vars.$border-radius-sm; // Mniejszy radius na mobile
+  }
+
   @media (orientation: landscape) and (max-height: 600px) {
     padding: vars.$spacing-md;
   }
@@ -415,6 +453,11 @@
   margin-bottom: vars.$spacing-md;
   color: var(--color-text);
 
+  @media (max-width: vars.$breakpoint-sm) {
+    font-size: 1.25rem; // Mniejszy na mobile
+    line-height: 1.3; // Większy dla mobile
+  }
+
   @media print {
     color: #000;
     font-size: 1.25rem;
@@ -425,6 +468,10 @@
   display: flex;
   flex-direction: column;
   gap: vars.$spacing-md;
+
+  @media (max-width: vars.$breakpoint-sm) {
+    gap: vars.$spacing-sm; // Zmniejsz z $spacing-md
+  }
 }
 
 // Footer
@@ -529,6 +576,12 @@
   justify-content: center;
   gap: vars.$spacing-xs;
   min-width: 120px;
+  min-height: 48px; // Standard touch target
+  min-width: 48px; // Dla ikon
+
+  @media (max-width: vars.$breakpoint-sm) {
+    padding: vars.$spacing-md; // Większy padding na mobile
+  }
 
   @media print {
     display: none;
@@ -561,12 +614,17 @@
   }
 
   &-icon {
-    min-width: 48px;
-    width: 48px;
-    height: 48px;
+    min-width: 56px; // Zwiększ z 48px
+    width: 56px;
+    height: 56px;
     padding: 0;
     font-size: 1.5rem;
     font-weight: 700;
+  }
+
+  &:active {
+    transform: scale(0.98); // Szybki feedback (zamiast tylko translateY)
+    transition: transform vars.$transition-fast; // Bardzo szybki
   }
 }
 
@@ -695,6 +753,10 @@
   cursor: pointer;
   transition: all vars.$transition-fast;
 
+  @media (max-width: vars.$breakpoint-sm) {
+    padding: vars.$spacing-xs-mobile vars.$spacing-xs; // Mniejszy padding na mobile
+  }
+
   &:hover {
     background-color: var(--color-bg-code);
     border-color: var(--color-link);
@@ -709,11 +771,19 @@
 .language-flag {
   font-size: 1.25rem;
   line-height: 1;
+
+  @media (max-width: vars.$breakpoint-sm) {
+    font-size: 1rem; // Zmniejsz na mobile dla kompaktowego header
+  }
 }
 
 .language-label {
   font-size: 0.875rem;
   font-weight: 600;
+
+  @media (max-width: vars.$breakpoint-sm) {
+    display: none; // Ukryj teksty, zostaw ikony
+  }
 }
 
 // Theme Switcher
@@ -733,6 +803,10 @@
   cursor: pointer;
   transition: all vars.$transition-fast;
 
+  @media (max-width: vars.$breakpoint-sm) {
+    padding: vars.$spacing-xs-mobile vars.$spacing-xs; // Mniejszy padding na mobile
+  }
+
   &:hover {
     background-color: var(--color-bg-code);
     border-color: var(--color-link);
@@ -747,6 +821,10 @@
 .theme-icon {
   font-size: 1.25rem;
   line-height: 1;
+
+  @media (max-width: vars.$breakpoint-sm) {
+    font-size: 1rem; // Zmniejsz na mobile dla kompaktowego header
+  }
 }
 
 .theme-label {
