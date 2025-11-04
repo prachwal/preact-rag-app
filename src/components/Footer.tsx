@@ -1,20 +1,9 @@
 import { memo } from "preact/compat"
-import { useState, useEffect } from "preact/hooks"
-import i18n from "../i18n"
+import { useTranslation } from "../hooks/useTranslation"
 
 export const Footer = memo(function Footer() {
   const currentYear = new Date().getFullYear()
-  const [t, setT] = useState(() => i18n.t.bind(i18n))
-
-  useEffect(() => {
-    const handleLanguageChange = () => {
-      setT(() => i18n.t.bind(i18n))
-    }
-    i18n.on('languageChanged', handleLanguageChange)
-    return () => {
-      i18n.off('languageChanged', handleLanguageChange)
-    }
-  }, [])
+  const t = useTranslation()
 
   return (
     <footer class="app-footer">

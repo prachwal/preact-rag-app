@@ -31,9 +31,19 @@ export const ThemeSwitcher = memo(function ThemeSwitcher() {
       }
     }
 
+    const handleKeyDown = (event: KeyboardEvent) => {
+      if (event.key === 'Escape') {
+        setIsOpen(false)
+      }
+    }
+
     if (isOpen) {
       document.addEventListener('mousedown', handleClickOutside)
-      return () => document.removeEventListener('mousedown', handleClickOutside)
+      document.addEventListener('keydown', handleKeyDown)
+      return () => {
+        document.removeEventListener('mousedown', handleClickOutside)
+        document.removeEventListener('keydown', handleKeyDown)
+      }
     }
   }, [isOpen])
 
@@ -79,6 +89,7 @@ export const ThemeSwitcher = memo(function ThemeSwitcher() {
                     setMode(mode.value)
                     setIsOpen(false)
                   }}
+                  aria-label={`Select ${mode.label} mode`}
                 >
                   <span class="theme-option-icon">{mode.icon}</span>
                   <span class="theme-option-label">{mode.label}</span>
@@ -97,6 +108,7 @@ export const ThemeSwitcher = memo(function ThemeSwitcher() {
                     setVariant(variant.value)
                     setIsOpen(false)
                   }}
+                  aria-label={`Select ${variant.label} variant`}
                 >
                   <span class="theme-option-icon">{variant.icon}</span>
                   <span class="theme-option-label">{variant.label}</span>

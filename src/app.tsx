@@ -13,20 +13,28 @@ import './i18n'
 export function App() {
   const [sidebarOpen, setSidebarOpen] = useState(false)
   const [sidebarExpanded, setSidebarExpanded] = useState(true)
+  const [windowWidth, setWindowWidth] = useState(typeof window !== 'undefined' ? window.innerWidth : 1024)
 
   // Initialize sidebar state based on screen size
   useEffect(() => {
     const checkScreenSize = () => {
       const width = window.innerWidth
+      setWindowWidth(width)
       const isMobile = width < 768
       const isDesktop = width >= 992
-      setSidebarOpen(true) // Always open in mobile (full screen), toggleable in desktop
-      setSidebarExpanded(isMobile || isDesktop) // Expanded on mobile and desktop, collapsed on tablet
+
+      setSidebarOpen(true)
+      // Tablet zawsze collapsed, mobile i desktop expanded
+      setSidebarExpanded(isMobile || isDesktop)
     }
 
     checkScreenSize()
     window.addEventListener('resize', checkScreenSize)
-    return () => window.removeEventListener('resize', checkScreenSize)
+    window.addEventListener('orientationchange', checkScreenSize)
+    return () => {
+      window.removeEventListener('resize', checkScreenSize)
+      window.removeEventListener('orientationchange', checkScreenSize)
+    }
   }, [])
 
   const toggleSidebar = () => setSidebarOpen(!sidebarOpen)
@@ -57,7 +65,7 @@ export function App() {
             onToggleExpanded={toggleSidebarExpanded}
           />
 
-          {sidebarOpen && window.innerWidth < 768 && (
+          {sidebarOpen && windowWidth < 768 && (
             <div class="sidebar-overlay" onClick={closeSidebar} />
           )}
 

@@ -1,20 +1,10 @@
 import { Card } from '../components/Card';
-import { useState, useEffect } from 'preact/hooks';
-import i18n from '../i18n';
+import { useState } from 'preact/hooks';
+import { useTranslation } from '../hooks/useTranslation';
 
 export function CounterPage() {
   const [counter, setCounter] = useState(0);
-  const [t, setT] = useState(() => i18n.t.bind(i18n));
-
-  useEffect(() => {
-    const handleLanguageChange = () => {
-      setT(() => i18n.t.bind(i18n));
-    };
-    i18n.on('languageChanged', handleLanguageChange);
-    return () => {
-      i18n.off('languageChanged', handleLanguageChange);
-    };
-  }, []);
+  const t = useTranslation();
 
   return (
     <div class="content-grid">

@@ -40,8 +40,8 @@
 
   @media (max-width: vars.$breakpoint-md) {
     display: block;
-    transition: opacity vars.$transition-mobile ease; // Szybsze fade
-    backdrop-filter: none; // Bez blur
+    transition: opacity vars.$transition-mobile ease; // Faster fade
+    backdrop-filter: none; // No blur
   }
 }
 
@@ -56,9 +56,9 @@
   // Mobile: no margin, sidebar is overlay
   @media (max-width: vars.$breakpoint-md) {
     margin-left: 0;
-    padding: vars.$spacing-sm-mobile; // Nowy: mniejszy na mobile
-    margin: env(safe-area-inset-top) env(safe-area-inset-right)
-      env(safe-area-inset-bottom) env(safe-area-inset-left); // Dla notch
+    padding: vars.$spacing-sm-mobile; // New: smaller on mobile
+    padding: env(safe-area-inset-top) env(safe-area-inset-right)
+      env(safe-area-inset-bottom) env(safe-area-inset-left);
   }
 
   // Tablet: adjust for collapsed/expanded sidebar
@@ -98,6 +98,16 @@
   }
 }
 
+// Special tablet rules - force collapsed mode layout
+@media (min-width: vars.$breakpoint-md) and (max-width: vars.$breakpoint-lg) {
+  .app-layout {
+    .main-content {
+      margin-left: vars.$sidebar-collapsed-width !important;
+      max-width: calc(100vw - vars.$sidebar-collapsed-width) !important;
+    }
+  }
+}
+
 .content-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(min(300px, 100%), 1fr));
@@ -121,7 +131,7 @@
     gap: vars.$spacing-sm;
   }
 
-  // Dla i18n – łamanie słów
+  // For i18n – word breaking
   p,
   li {
     hyphens: auto;

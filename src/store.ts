@@ -71,13 +71,17 @@ export const settings = signal<StoreValue>({
   variant: initialVariant,
 });
 
+export const systemTheme = signal(
+  typeof window !== "undefined" && window.matchMedia
+    ? window.matchMedia("(prefers-color-scheme: dark)").matches
+    : false
+);
+
 export const currentMode = computed(() => settings.value.mode);
 export const currentVariant = computed(() => settings.value.variant);
 export const effectiveMode = computed(() => {
   if (settings.value.mode === "auto") {
-    return window.matchMedia("(prefers-color-scheme: dark)").matches
-      ? "dark"
-      : "light";
+    return systemTheme.value ? "dark" : "light";
   }
   return settings.value.mode;
 });
@@ -151,13 +155,11 @@ export function useStore(): Store {
   };
 }
 
-if (typeof window !== "undefined" && !import.meta.env?.TEST) {
+if (typeof window !== "undefined" && window.matchMedia) {
   const mediaQuery = window.matchMedia("(prefers-color-scheme: dark)");
 
   const handleSystemThemeChange = () => {
-    if (settings.value.mode === "auto") {
-      settings.value = { ...settings.value };
-    }
+    systemTheme.value = mediaQuery.matches;
   };
 
   if (mediaQuery.addEventListener) {
