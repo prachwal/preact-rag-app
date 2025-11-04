@@ -1,5 +1,5 @@
 import { memo } from "preact/compat"
-import { useState } from "preact/hooks"
+import { useState, useEffect } from "preact/hooks"
 import { useTranslation } from "../hooks/useTranslation"
 
 interface NavItem {
@@ -116,6 +116,13 @@ export const Sidebar = memo(function Sidebar({ isOpen, isExpanded, onClose, onTo
   const [popoverItem, setPopoverItem] = useState<string | null>(null)
   const [popoverPosition, setPopoverPosition] = useState<{ top: number; left: number } | null>(null)
   const t = useTranslation()
+
+  // Reset popover on scroll for better UX
+  useEffect(() => {
+    const handleScroll = () => setPopoverItem(null);
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
 
   const toggleItem = (href: string, hasChildren: boolean, event?: Event) => {
     if (!isExpanded && hasChildren) {

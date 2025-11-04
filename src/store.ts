@@ -167,6 +167,17 @@ if (typeof window !== "undefined" && window.matchMedia) {
   } else {
     mediaQuery.addListener(handleSystemThemeChange);
   }
+
+  // Cleanup function for HMR/memory leak prevention
+  if (import.meta.hot) {
+    import.meta.hot.dispose(() => {
+      if (mediaQuery.removeEventListener) {
+        mediaQuery.removeEventListener("change", handleSystemThemeChange);
+      } else {
+        mediaQuery.removeListener(handleSystemThemeChange);
+      }
+    });
+  }
 }
 
 export default useStore;

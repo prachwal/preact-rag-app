@@ -8,6 +8,8 @@ import { Footer } from './components/Footer'
 import { SettingsPage } from './pages/SettingsPage'
 import { CounterPage } from './pages/CounterPage'
 import { DocumentationPage } from './pages/DocumentationPage'
+import { SubSettingsPage } from './pages/SubSettingsPage'
+import { SubDocPage } from './pages/SubDocPage'
 import './i18n'
 
 export function App() {
@@ -73,8 +75,10 @@ export function App() {
             <Router>
               <Route path="/" component={SettingsPage} />
               <Route path="/settings" component={SettingsPage} />
+              <Route path="/settings/:subpage" component={SubSettingsPage} />
               <Route path="/counter" component={CounterPage} />
               <Route path="/documentation" component={DocumentationPage} />
+              <Route path="/documentation/:subpage" component={SubDocPage} />
             </Router>
           </main>
         </div>

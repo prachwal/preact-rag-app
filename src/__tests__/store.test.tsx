@@ -1,6 +1,6 @@
 import { act, renderHook } from '@testing-library/preact'
 import { describe, it, expect, beforeEach } from 'vitest'
-import { useStore, settings } from '../store'
+import { useStore, settings, systemTheme } from '../store'
 
 describe('useStore', () => {
 
@@ -85,5 +85,24 @@ describe('useStore', () => {
     expect(() => result.current.setMode('light')).not.toThrow();
 
     Storage.prototype.setItem = originalSetItem;
+  });
+
+  it('should update effectiveMode when system theme changes in auto mode', () => {
+    const { result } = renderHook(() => useStore());
+
+    // Set mode to auto
+    act(() => {
+      result.current.setMode('auto');
+    });
+
+    // Initially systemTheme is false (light)
+    expect(result.current.effectiveMode.value).toBe('light');
+
+    // Change system theme to dark
+    act(() => {
+      systemTheme.value = true;
+    });
+
+    expect(result.current.effectiveMode.value).toBe('dark');
   });
 })

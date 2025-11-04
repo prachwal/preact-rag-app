@@ -77,6 +77,16 @@ export const resources = {
         currentVariant: "Obecny wariant",
         modeButton: "Tryb",
         variantButton: "Wariant",
+        theme: {
+          description:
+            "Dostosuj wygląd aplikacji, włączając tryby jasny i ciemny oraz warianty kolorystyczne.",
+        },
+        preferences: {
+          description:
+            "Skonfiguruj swoje preferencje użytkownika, takie jak język i ustawienia regionalne.",
+        },
+        subpageNotFound: "Podstrona ustawień nie znaleziona",
+        unknownSubpage: "Nieznana podstrona ustawień",
       },
       counter: {
         title: "Licznik",
@@ -92,6 +102,20 @@ export const resources = {
           responsive: "📱 W pełni responsywny design",
           wcag: "♿ Kolory zgodne z WCAG AA",
         },
+      },
+      doc: {
+        gettingStarted: {
+          title: "Rozpoczęcie pracy",
+          description:
+            "Dowiedz się jak zacząć korzystać z aplikacji, od instalacji po pierwsze kroki.",
+        },
+        api: {
+          title: "Dokumentacja API",
+          description:
+            "Szczegółowa dokumentacja wszystkich dostępnych funkcji i punktów końcowych API.",
+        },
+        subpageNotFound: "Podstrona dokumentacji nie znaleziona",
+        unknownSubpage: "Nieznana podstrona dokumentacji",
       },
       footer: {
         builtWith: "Zbudowano z",

@@ -1,18 +1,9 @@
-import { useState, useEffect } from "preact/hooks";
+import { useCallback } from "preact/hooks";
 import i18n from "../i18n";
 
 export function useTranslation() {
-  const [t, setT] = useState(() => i18n.t.bind(i18n));
-
-  useEffect(() => {
-    const handleLanguageChange = () => {
-      setT(() => i18n.t.bind(i18n));
-    };
-    i18n.on("languageChanged", handleLanguageChange);
-    return () => {
-      i18n.off("languageChanged", handleLanguageChange);
-    };
+  return useCallback((key: string, options?: any): string => {
+    const result = i18n.t(key, options);
+    return typeof result === "string" ? result : String(result);
   }, []);
-
-  return t;
 }
